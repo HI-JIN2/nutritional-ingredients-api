@@ -16,10 +16,21 @@
 `src/main/resources/data/통합_식품영양성분DB_음식_20230715.csv`
 (파일명이 다르거나 경로를 변경하고 싶다면 `application.yml`의 `app.data.file-path`를 수정하세요.)
 
-### 2. 실행 (Docker Compose)
-Docker가 설치되어 있어야 합니다.
+### 2. 실행
+
+**옵션 A: Docker Compose를 이용한 실행 (권장)**
+Docker가 설치되어 있어야 합니다. 애플리케이션과 데이터베이스를 한 번에 실행합니다.
 ```bash
 docker-compose up --build
+```
+
+**옵션 B: 로컬에서 직접 실행하기 (Gradle)**
+로컬 환경에 PostgreSQL이 실행 중이어야 합니다.
+1. 프로젝트 루트의 `.env.example` 파일을 복사하여 `.env` 파일을 생성합니다.
+2. 생성된 `.env` 파일 내의 데이터베이스 접속 정보(URL, USERNAME, PASSWORD)를 로컬 환경에 맞게 수정합니다.
+3. 다음 명령어를 실행합니다:
+```bash
+./gradlew bootRun
 ```
 
 ### 3. API 문서 확인

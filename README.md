@@ -14,14 +14,14 @@
 
 ### 1. 실행
 
-**옵션 A: Docker Compose를 이용한 실행 (권장)**
+**옵션 A: Docker Compose를 이용한 실행 (권장)**  
 Docker가 설치되어 있어야 합니다. 애플리케이션과 데이터베이스를 한 번에 실행하며, 초기 데이터(CSV)도 자동으로 적재됩니다.
 
 ```bash
 docker-compose up --build
 ```
 
-**옵션 B: 로컬에서 직접 실행하기 (Gradle)**
+**옵션 B: 로컬에서 직접 실행하기 (Gradle)**  
 로컬 환경에 PostgreSQL(포트 5432, 데이터베이스 `nutritional_db`, 계정 `user`/`password`)이 실행 중이어야 합니다.
 
 ```bash
@@ -33,7 +33,6 @@ docker-compose up --build
 애플리케이션이 실행되면 아래 주소에서 Swagger UI를 확인할 수 있습니다:
 `http://localhost:8080/swagger-ui.html`
 
-## 주요 기능 및 구현 상세
 
 ## 패키지 구조 (DDD 지향)
 
@@ -45,6 +44,8 @@ docker-compose up --build
     - `infrastructure`: 데이터 로더(CSV/Excel), 하위 구현체
     - `presentation`: REST 컨트롤러
 - `global`: 에러 핸들링, 공통 설정
+
+## 주요 기능 및 구현 상세
 
 ### 데이터 적재 (Data Loading)
 
@@ -58,11 +59,10 @@ docker-compose up --build
 - **매핑 기준**: Excel의 헤더 이름을 기반으로 Entity의 필드와 매핑합니다.
 
 ### 검색 API (Search API)
-
-    - `GET /api/v1/foods`: 목록 조회 (검색/페이징)
-        - **필터링**: 식품명(부분 일치), 조사년도(정확 일치), 제조사(부분 일치), 식품코드(정확 일치)를 지원합니다.
-        - **페이지네이션**: Spring Data Jpa의 `Pageable`을 사용하여 대량 데이터 조회를 최적화하였습니다.
-        - **성능 최적화**: 자주 검색되는 `food_name`과 `food_cd` 컬럼에 인덱스를 적용하였습니다.
+- `GET /api/v1/foods`: 목록 조회 (검색/페이징)
+    - **필터링**: 식품명(부분 일치), 조사년도(정확 일치), 제조사(부분 일치), 식품코드(정확 일치)를 지원합니다.
+    - **페이지네이션**: Spring Data Jpa의 `Pageable`을 사용하여 대량 데이터 조회를 최적화하였습니다.
+    - **성능 최적화**: 자주 검색되는 `food_name`과 `food_cd` 컬럼에 인덱스를 적용하였습니다.
 
 ### CRUD API
 

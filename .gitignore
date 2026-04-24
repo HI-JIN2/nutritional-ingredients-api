@@ -1,10 +1,32 @@
-/.env
-/.env.example
-/.gradle
-/Dockerfile
-/bin
-/build
-/build.gradle.kts
-/docker-compose.yml
-/settings.gradle.kts
-/src
+# Gradle
+.gradle
+/build/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+out/
+.idea_modules/
+
+# Eclipse
+.settings/
+.classpath
+.project
+bin/
+.tmp/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Project specific
+logs/
+*.log
+src/main/resources/data/*.xlsx
+# src/main/resources/data/*.csv  # Keep this if you want to commit the data

@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: nutritional-ingredients-api
+  datasource:
+    url: jdbc:postgresql://localhost:5432/nutritional_db
+    username: user
+    password: password
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+app:
+  data:
+    load: true
+    file-path: src/main/resources/data/통합_식품영양성분DB_음식_20230715.csv
+
+server:
+  port: 8080
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always

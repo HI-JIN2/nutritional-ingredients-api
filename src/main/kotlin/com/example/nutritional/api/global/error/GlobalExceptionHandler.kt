@@ -1,0 +1,38 @@
+package com.example.nutritional.api.global.error
+
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.MethodArgumentNotValidException
+import org.springframework.web.bind.annotation.ExceptionHandler
+import org.springframework.web.bind.annotation.RestControllerAdvice
+
+@RestControllerAdvice
+class GlobalExceptionHandler {
+
+    @ExceptionHandler(FoodNotFoundException::class)
+    fun handleNotFound(e: FoodNotFoundException): ResponseEntity<ErrorResponse> {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+            .body(ErrorResponse(HttpStatus.NOT_FOUND.value(), e.message ?: "Not Found"))
+    }
+
+    @ExceptionHandler(DuplicateFoodCodeException::class)
+    fun handleDuplicate(e: DuplicateFoodCodeException): ResponseEntity<ErrorResponse> {
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+            .body(ErrorResponse(HttpStatus.CONFLICT.value(), e.message ?: "Duplicate Error"))
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException::class)
+    fun handleValidation(e: MethodArgumentNotValidException): ResponseEntity<ErrorResponse> {
+        val message = e.bindingResult.fieldErrors.joinToString { "${it.field}: ${it.defaultMessage}" }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+            .body(ErrorResponse(HttpStatus.BAD_REQUEST.value(), message))
+    }
+
+    @ExceptionHandler(Exception::class)
+    fun handleGeneral(e: Exception): ResponseEntity<ErrorResponse> {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+            .body(ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.message ?: "Internal Server Error"))
+    }
+}
+
+data class ErrorResponse(val status: Int, val message: String)

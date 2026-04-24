@@ -17,7 +17,7 @@ services:
       SPRING_DATASOURCE_USERNAME: user
       SPRING_DATASOURCE_PASSWORD: password
       APP_DATA_LOAD: "true"
-      APP_DATA_FILE_PATH: "/workspace/app/src/main/resources/data/통합_식품영양성분DB_음식_20230715.csv"
+      APP_DATA_FILE_PATH: "/app/data/통합_식품영양성분DB_음식_20230715.csv"
     ports:
       - "8080:8080"
     depends_on:

@@ -11,4 +11,5 @@ FROM openjdk:17-jdk-slim
 VOLUME /tmp
 ARG JAR_FILE=/workspace/app/build/libs/*.jar
 COPY --from=build ${JAR_FILE} app.jar
+COPY src/main/resources/data /app/data
 ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]

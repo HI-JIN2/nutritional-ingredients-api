@@ -1,4 +1,4 @@
-FROM openjdk:17-jdk-slim as build
+FROM eclipse-temurin:17-jdk-jammy as build
 WORKDIR /workspace/app
 
 COPY gradle gradle
@@ -7,7 +7,7 @@ COPY src src
 
 RUN ./gradlew build -x test --stacktrace
 
-FROM openjdk:17-jdk-slim
+FROM eclipse-temurin:17-jre-jammy
 VOLUME /tmp
 ARG JAR_FILE=/workspace/app/build/libs/*.jar
 COPY --from=build ${JAR_FILE} app.jar

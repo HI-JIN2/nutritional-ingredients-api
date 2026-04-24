@@ -12,13 +12,13 @@ class GlobalExceptionHandler {
     @ExceptionHandler(FoodNotFoundException::class)
     fun handleNotFound(e: FoodNotFoundException): ResponseEntity<ErrorResponse> {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
-            .body(ErrorResponse(HttpStatus.NOT_FOUND.value(), e.message ?: "Not Found"))
+            .body(ErrorResponse(HttpStatus.NOT_FOUND.value(), e.message ?: "리소스를 찾을 수 없습니다"))
     }
 
     @ExceptionHandler(DuplicateFoodCodeException::class)
     fun handleDuplicate(e: DuplicateFoodCodeException): ResponseEntity<ErrorResponse> {
         return ResponseEntity.status(HttpStatus.CONFLICT)
-            .body(ErrorResponse(HttpStatus.CONFLICT.value(), e.message ?: "Duplicate Error"))
+            .body(ErrorResponse(HttpStatus.CONFLICT.value(), e.message ?: "데이터가 중복되었습니다"))
     }
 
     @ExceptionHandler(MethodArgumentNotValidException::class)
@@ -31,7 +31,7 @@ class GlobalExceptionHandler {
     @ExceptionHandler(Exception::class)
     fun handleGeneral(e: Exception): ResponseEntity<ErrorResponse> {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-            .body(ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.message ?: "Internal Server Error"))
+            .body(ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.message ?: "서버 내부 오류가 발생했습니다"))
     }
 }
 

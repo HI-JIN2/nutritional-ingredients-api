@@ -4,7 +4,7 @@ import com.example.nutritional.api.food.application.FoodResponse
 import com.example.nutritional.api.food.application.FoodService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
-import org.springframework.data.domain.Page
+import com.example.nutritional.api.global.dto.PageResponse
 import org.springframework.data.domain.Pageable
 import org.springframework.data.domain.Sort
 import org.springframework.data.web.PageableDefault
@@ -29,7 +29,8 @@ class SearchController(private val foodService: FoodService) {
         @RequestParam(required = false) maker_name: String?,
         @RequestParam(required = false) food_code: String?,
         @PageableDefault(sort = ["id"], direction = Sort.Direction.DESC) pageable: Pageable
-    ): Page<FoodResponse> {
-        return foodService.getFoods(food_name, research_year, maker_name, food_code, pageable)
+    ): PageResponse<FoodResponse> {
+        val pageData = foodService.getFoods(food_name, research_year, maker_name, food_code, pageable)
+        return PageResponse(pageData)
     }
 }

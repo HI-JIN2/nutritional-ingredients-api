@@ -18,7 +18,9 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delet
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
-@SpringBootTest
+import com.example.nutritional.api.NutritionalApiApplication
+
+@SpringBootTest(classes = [NutritionalApiApplication::class])
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 class FoodApiIntegrationTest @Autowired constructor(
@@ -52,13 +54,13 @@ class FoodApiIntegrationTest @Autowired constructor(
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(request))
         ).andExpect(status().isCreated)
-            .andExpect(jsonPath("$.foodName").value("Test Food"))
+            .andExpect(jsonPath("$.food_name").value("Test Food"))
 
         mockMvc.perform(
             get(ApiEndpoints.SEARCH)
                 .param("food_name", "Test")
         ).andExpect(status().isOk)
-            .andExpect(jsonPath("$.content[0].foodCd").value("TEST001"))
+            .andExpect(jsonPath("$.content[0].food_cd").value("TEST001"))
     }
 
     @Test

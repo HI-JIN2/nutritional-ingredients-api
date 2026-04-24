@@ -1,0 +1,10 @@
+/.env
+/.env.example
+/.gradle
+/Dockerfile
+/bin
+/build
+/build.gradle.kts
+/docker-compose.yml
+/settings.gradle.kts
+/src

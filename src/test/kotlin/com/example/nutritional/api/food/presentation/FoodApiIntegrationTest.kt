@@ -24,7 +24,7 @@ class FoodApiIntegrationTest @Autowired constructor(
 ) {
 
     @Test
-    fun `should create and retrieve food`() {
+    fun `식품을 생성하고 검색 조건을 통해 조회할 수 있어야 한다`() {
         val request = FoodCreateRequest(
             food_cd = "TEST001",
             group_name = "Test Group",
@@ -59,7 +59,7 @@ class FoodApiIntegrationTest @Autowired constructor(
     }
 
     @Test
-    fun `should return 404 for non-existent food`() {
+    fun `존재하지 않는 식품을 조회하면 404를 반환해야 한다`() {
         mockMvc.perform(get("/api/v1/foods/99999"))
             .andExpect(status().isNotFound)
     }

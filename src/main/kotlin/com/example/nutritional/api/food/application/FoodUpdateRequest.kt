@@ -1,9 +1,12 @@
 package com.example.nutritional.api.food.application
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategies
+import com.fasterxml.jackson.databind.annotation.JsonNaming
 import io.swagger.v3.oas.annotations.media.Schema
 import jakarta.validation.constraints.NotBlank
 
 @Schema(description = "식품 정보 수정 요청 DTO")
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
 data class FoodUpdateRequest(
     @Schema(description = "식품이름", example = "수정된 꿩불고기")
     @field:NotBlank(message = "식품 이름은 필수입니다.")

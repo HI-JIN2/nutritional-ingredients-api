@@ -1,7 +1,10 @@
 package com.example.nutritional.api.food.application
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategies
+import com.fasterxml.jackson.databind.annotation.JsonNaming
 import io.swagger.v3.oas.annotations.media.Schema
 
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
 data class FoodResponse(
     @Schema(description = "ID", example = "1")
     val id: Long,

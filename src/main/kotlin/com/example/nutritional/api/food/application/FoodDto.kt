@@ -1,6 +1,7 @@
 package com.example.nutritional.api.food.application
 
 import io.swagger.v3.oas.annotations.media.Schema
+import jakarta.validation.constraints.NotBlank
 
 data class FoodResponse(
     @Schema(description = "ID")
@@ -40,8 +41,10 @@ data class FoodResponse(
 )
 
 data class FoodCreateRequest(
+    @field:NotBlank(message = "식품 코드는 필수입니다.")
     val food_cd: String,
     val group_name: String?,
+    @field:NotBlank(message = "식품 이름은 필수입니다.")
     val food_name: String,
     val research_year: Int?,
     val maker_name: String?,
@@ -59,6 +62,7 @@ data class FoodCreateRequest(
 )
 
 data class FoodUpdateRequest(
+    @field:NotBlank(message = "식품 이름은 필수입니다.")
     val food_name: String,
     val group_name: String?,
     val research_year: Int?,

@@ -7,19 +7,19 @@ data class FoodResponse(
     @Schema(description = "ID")
     val id: Long,
     @Schema(description = "식품코드")
-    val food_cd: String,
+    val foodCd: String,
     @Schema(description = "식품군")
-    val group_name: String?,
+    val groupName: String?,
     @Schema(description = "식품이름")
-    val food_name: String,
+    val foodName: String,
     @Schema(description = "조사년도")
-    val research_year: Int?,
+    val researchYear: Int?,
     @Schema(description = "지역/제조사")
-    val maker_name: String?,
+    val makerName: String?,
     @Schema(description = "자료출처")
-    val ref_name: String?,
+    val refName: String?,
     @Schema(description = "1회 제공량")
-    val serving_size: String?,
+    val servingSize: String?,
     @Schema(description = "열량(kcal)")
     val calorie: Double?,
     @Schema(description = "탄수화물(g)")
@@ -35,21 +35,21 @@ data class FoodResponse(
     @Schema(description = "콜레스테롤(mg)")
     val cholesterol: Double?,
     @Schema(description = "포화지방산(g)")
-    val saturated_fatty_acids: Double?,
+    val saturatedFattyAcids: Double?,
     @Schema(description = "트랜스지방(g)")
-    val trans_fat: Double?
+    val transFat: Double?
 )
 
 data class FoodCreateRequest(
     @field:NotBlank(message = "식품 코드는 필수입니다.")
-    val food_cd: String,
-    val group_name: String?,
+    val foodCd: String,
+    val groupName: String?,
     @field:NotBlank(message = "식품 이름은 필수입니다.")
-    val food_name: String,
-    val research_year: Int?,
-    val maker_name: String?,
-    val ref_name: String?,
-    val serving_size: String?,
+    val foodName: String,
+    val researchYear: Int?,
+    val makerName: String?,
+    val refName: String?,
+    val servingSize: String?,
     val calorie: Double?,
     val carbohydrate: Double?,
     val protein: Double?,
@@ -57,18 +57,18 @@ data class FoodCreateRequest(
     val sugars: Double?,
     val sodium: Double?,
     val cholesterol: Double?,
-    val saturated_fatty_acids: Double?,
-    val trans_fat: Double?
+    val saturatedFattyAcids: Double?,
+    val transFat: Double?
 )
 
 data class FoodUpdateRequest(
     @field:NotBlank(message = "식품 이름은 필수입니다.")
-    val food_name: String,
-    val group_name: String?,
-    val research_year: Int?,
-    val maker_name: String?,
-    val ref_name: String?,
-    val serving_size: String?,
+    val foodName: String,
+    val groupName: String?,
+    val researchYear: Int?,
+    val makerName: String?,
+    val refName: String?,
+    val servingSize: String?,
     val calorie: Double?,
     val carbohydrate: Double?,
     val protein: Double?,
@@ -76,6 +76,6 @@ data class FoodUpdateRequest(
     val sugars: Double?,
     val sodium: Double?,
     val cholesterol: Double?,
-    val saturated_fatty_acids: Double?,
-    val trans_fat: Double?
+    val saturatedFattyAcids: Double?,
+    val transFat: Double?
 )

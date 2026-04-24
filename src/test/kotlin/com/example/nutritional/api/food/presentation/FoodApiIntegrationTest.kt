@@ -2,6 +2,7 @@ package com.example.nutritional.api.food.presentation
 
 import com.example.nutritional.api.food.application.FoodCreateRequest
 import com.example.nutritional.api.food.application.FoodService
+import com.example.nutritional.api.global.common.ApiEndpoints
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -12,6 +13,8 @@ import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
@@ -26,13 +29,13 @@ class FoodApiIntegrationTest @Autowired constructor(
     @Test
     fun `식품을 생성하고 검색 조건을 통해 조회할 수 있어야 한다`() {
         val request = FoodCreateRequest(
-            food_cd = "TEST001",
-            group_name = "Test Group",
-            food_name = "Test Food",
-            research_year = 2023,
-            maker_name = "Test Maker",
-            ref_name = "Test Ref",
-            serving_size = "100g",
+            foodCd = "TEST001",
+            groupName = "Test Group",
+            foodName = "Test Food",
+            researchYear = 2023,
+            makerName = "Test Maker",
+            refName = "Test Ref",
+            servingSize = "100g",
             calorie = 100.0,
             carbohydrate = 10.0,
             protein = 5.0,
@@ -40,40 +43,40 @@ class FoodApiIntegrationTest @Autowired constructor(
             sugars = 1.0,
             sodium = 100.0,
             cholesterol = 0.0,
-            saturated_fatty_acids = 0.0,
-            trans_fat = 0.0
+            saturatedFattyAcids = 0.0,
+            transFat = 0.0
         )
 
         mockMvc.perform(
-            post("/api/v1/foods")
+            post(ApiEndpoints.FOODS)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(request))
         ).andExpect(status().isCreated)
-            .andExpect(jsonPath("$.food_name").value("Test Food"))
+            .andExpect(jsonPath("$.foodName").value("Test Food"))
 
         mockMvc.perform(
-            get("/api/v1/search")
+            get(ApiEndpoints.SEARCH)
                 .param("food_name", "Test")
         ).andExpect(status().isOk)
-            .andExpect(jsonPath("$.content[0].food_cd").value("TEST001"))
+            .andExpect(jsonPath("$.content[0].foodCd").value("TEST001"))
     }
 
     @Test
     fun `존재하지 않는 식품을 조회하면 404를 반환해야 한다`() {
-        mockMvc.perform(get("/api/v1/foods/99999"))
+        mockMvc.perform(get("${ApiEndpoints.FOODS}/99999"))
             .andExpect(status().isNotFound)
     }
 
     @Test
     fun `중복된 식품 코드로 생성 시도 시 409를 반환해야 한다`() {
         val request = FoodCreateRequest(
-            food_cd = "DUP_001",
-            food_name = "Original Food",
-            group_name = "Group",
-            research_year = 2023,
-            maker_name = "Maker",
-            ref_name = "Ref",
-            serving_size = "100g",
+            foodCd = "DUP_001",
+            foodName = "Original Food",
+            groupName = "Group",
+            researchYear = 2023,
+            makerName = "Maker",
+            refName = "Ref",
+            servingSize = "100g",
             calorie = 100.0,
             carbohydrate = 10.0,
             protein = 5.0,
@@ -81,20 +84,20 @@ class FoodApiIntegrationTest @Autowired constructor(
             sugars = 1.0,
             sodium = 100.0,
             cholesterol = 0.0,
-            saturated_fatty_acids = 0.0,
-            trans_fat = 0.0
+            saturatedFattyAcids = 0.0,
+            transFat = 0.0
         )
 
         // 처음 생성 성공
         mockMvc.perform(
-            post("/api/v1/foods")
+            post(ApiEndpoints.FOODS)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(request))
         ).andExpect(status().isCreated)
 
         // 두번째 생성 시도 (중복)
         mockMvc.perform(
-            post("/api/v1/foods")
+            post(ApiEndpoints.FOODS)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(request))
         ).andExpect(status().isConflict)
@@ -102,15 +105,15 @@ class FoodApiIntegrationTest @Autowired constructor(
 
     @Test
     fun `잘못된 요청값으로 생성 시도 시 400을 반환해야 한다`() {
-        // 필수값인 food_name이 비어있는 잘못된 요청
+        // 필수값인 foodName이 비어있는 잘못된 요청
         val request = FoodCreateRequest(
-            food_cd = "BAD_001",
-            food_name = "", 
-            group_name = "Group",
-            research_year = 2023,
-            maker_name = "Maker",
-            ref_name = "Ref",
-            serving_size = "100g",
+            foodCd = "BAD_001",
+            foodName = "", 
+            groupName = "Group",
+            researchYear = 2023,
+            makerName = "Maker",
+            refName = "Ref",
+            servingSize = "100g",
             calorie = 100.0,
             carbohydrate = 10.0,
             protein = 5.0,
@@ -118,12 +121,12 @@ class FoodApiIntegrationTest @Autowired constructor(
             sugars = 1.0,
             sodium = 100.0,
             cholesterol = 0.0,
-            saturated_fatty_acids = 0.0,
-            trans_fat = 0.0
+            saturatedFattyAcids = 0.0,
+            transFat = 0.0
         )
 
         mockMvc.perform(
-            post("/api/v1/foods")
+            post(ApiEndpoints.FOODS)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(request))
         ).andExpect(status().isBadRequest)
@@ -132,12 +135,12 @@ class FoodApiIntegrationTest @Autowired constructor(
     @Test
     fun `존재하지 않는 대상을 수정 시도하면 404를 반환해야 한다`() {
         val request = com.example.nutritional.api.food.application.FoodUpdateRequest(
-            food_name = "Updated Food",
-            group_name = "Group",
-            research_year = 2024,
-            maker_name = "Maker",
-            ref_name = "Ref",
-            serving_size = "100g",
+            foodName = "Updated Food",
+            groupName = "Group",
+            researchYear = 2024,
+            makerName = "Maker",
+            refName = "Ref",
+            servingSize = "100g",
             calorie = 100.0,
             carbohydrate = 10.0,
             protein = 5.0,
@@ -145,12 +148,12 @@ class FoodApiIntegrationTest @Autowired constructor(
             sugars = 1.0,
             sodium = 100.0,
             cholesterol = 0.0,
-            saturated_fatty_acids = 0.0,
-            trans_fat = 0.0
+            saturatedFattyAcids = 0.0,
+            transFat = 0.0
         )
 
         mockMvc.perform(
-            org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put("/api/v1/foods/99999")
+            put("${ApiEndpoints.FOODS}/99999")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(request))
         ).andExpect(status().isNotFound)
@@ -158,7 +161,7 @@ class FoodApiIntegrationTest @Autowired constructor(
 
     @Test
     fun `존재하지 않는 대상을 삭제 시도하면 404를 반환해야 한다`() {
-        mockMvc.perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete("/api/v1/foods/99999"))
+        mockMvc.perform(delete("${ApiEndpoints.FOODS}/99999"))
             .andExpect(status().isNotFound)
     }
 }

@@ -4,6 +4,7 @@ import com.example.nutritional.api.food.application.FoodCreateRequest
 import com.example.nutritional.api.food.application.FoodResponse
 import com.example.nutritional.api.food.application.FoodUpdateRequest
 import com.example.nutritional.api.food.application.FoodService
+import com.example.nutritional.api.global.common.ApiEndpoints
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import jakarta.validation.Valid
@@ -11,7 +12,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/api/v1/foods")
+@RequestMapping(ApiEndpoints.FOODS)
 @Tag(name = "Food CRUD API", description = "Food Nutritional Ingredients CRUD API")
 class FoodController(private val foodService: FoodService) {
 

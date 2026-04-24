@@ -31,17 +31,17 @@ class FoodService(private val foodRepository: FoodRepository) {
 
     @Transactional
     fun createFood(request: FoodCreateRequest): FoodResponse {
-        if (foodRepository.existsByFoodCd(request.food_cd)) {
-            throw DuplicateFoodCodeException(request.food_cd)
+        if (foodRepository.existsByFoodCd(request.foodCd)) {
+            throw DuplicateFoodCodeException(request.foodCd)
         }
         val food = Food(
-            foodCd = request.food_cd,
-            groupName = request.group_name,
-            foodName = request.food_name,
-            researchYear = request.research_year,
-            makerName = request.maker_name,
-            refName = request.ref_name,
-            servingSize = request.serving_size,
+            foodCd = request.foodCd,
+            groupName = request.groupName,
+            foodName = request.foodName,
+            researchYear = request.researchYear,
+            makerName = request.makerName,
+            refName = request.refName,
+            servingSize = request.servingSize,
             calorie = request.calorie,
             carbohydrate = request.carbohydrate,
             protein = request.protein,
@@ -49,8 +49,8 @@ class FoodService(private val foodRepository: FoodRepository) {
             sugars = request.sugars,
             sodium = request.sodium,
             cholesterol = request.cholesterol,
-            saturatedFattyAcids = request.saturated_fatty_acids,
-            transFat = request.trans_fat
+            saturatedFattyAcids = request.saturatedFattyAcids,
+            transFat = request.transFat
         )
         return foodRepository.save(food).toResponse()
     }
@@ -59,12 +59,12 @@ class FoodService(private val foodRepository: FoodRepository) {
     fun updateFood(id: Long, request: FoodUpdateRequest): FoodResponse {
         val food = foodRepository.findById(id).orElseThrow { FoodNotFoundException(id) }
         food.update(
-            foodName = request.food_name,
-            groupName = request.group_name,
-            researchYear = request.research_year,
-            makerName = request.maker_name,
-            refName = request.ref_name,
-            servingSize = request.serving_size,
+            foodName = request.foodName,
+            groupName = request.groupName,
+            researchYear = request.researchYear,
+            makerName = request.makerName,
+            refName = request.refName,
+            servingSize = request.servingSize,
             calorie = request.calorie,
             carbohydrate = request.carbohydrate,
             protein = request.protein,
@@ -72,8 +72,8 @@ class FoodService(private val foodRepository: FoodRepository) {
             sugars = request.sugars,
             sodium = request.sodium,
             cholesterol = request.cholesterol,
-            saturatedFattyAcids = request.saturated_fatty_acids,
-            transFat = request.trans_fat
+            saturatedFattyAcids = request.saturatedFattyAcids,
+            transFat = request.transFat
         )
         return food.toResponse()
     }
@@ -88,13 +88,13 @@ class FoodService(private val foodRepository: FoodRepository) {
 
     private fun Food.toResponse() = FoodResponse(
         id = id!!,
-        food_cd = foodCd,
-        group_name = groupName,
-        food_name = foodName,
-        research_year = researchYear,
-        maker_name = makerName,
-        ref_name = refName,
-        serving_size = servingSize,
+        foodCd = foodCd,
+        groupName = groupName,
+        foodName = foodName,
+        researchYear = researchYear,
+        makerName = makerName,
+        refName = refName,
+        servingSize = servingSize,
         calorie = calorie,
         carbohydrate = carbohydrate,
         protein = protein,
@@ -102,7 +102,7 @@ class FoodService(private val foodRepository: FoodRepository) {
         sugars = sugars,
         sodium = sodium,
         cholesterol = cholesterol,
-        saturated_fatty_acids = saturatedFattyAcids,
-        trans_fat = transFat
+        saturatedFattyAcids = saturatedFattyAcids,
+        transFat = transFat
     )
 }

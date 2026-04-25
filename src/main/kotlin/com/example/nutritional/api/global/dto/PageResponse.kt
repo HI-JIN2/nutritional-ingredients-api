@@ -5,8 +5,6 @@ import org.springframework.data.domain.Page
 
 @Schema(description = "페이지네이션 응답 래퍼")
 data class PageResponse<T>(
-    @Schema(description = "데이터 목록")
-    val content: List<T>,
     @Schema(description = "현재 페이지 번호 (0부터 시작)", example = "0")
     val page: Int,
     @Schema(description = "페이지 크기", example = "20")
@@ -16,14 +14,16 @@ data class PageResponse<T>(
     @Schema(description = "전체 페이지 수", example = "5")
     val totalPages: Int,
     @Schema(description = "마지막 페이지 여부", example = "false")
-    val last: Boolean
+    val last: Boolean,
+    @Schema(description = "데이터 목록")
+    val content: List<T>
 ) {
     constructor(pageData: Page<T>) : this(
-        content = pageData.content,
         page = pageData.number,
         size = pageData.size,
         totalElements = pageData.totalElements,
         totalPages = pageData.totalPages,
-        last = pageData.isLast
+        last = pageData.isLast,
+        content = pageData.content
     )
 }

@@ -29,6 +29,11 @@ class DataLoadService(private val foodRepository: FoodRepository) {
 
     private fun loadFromExcel(file: File) {
         logger.info("Loading data from Excel: ${file.absolutePath}")
+        
+        // Optimize: Fetch all existing codes at once to avoid n+1 queries
+        val existingFoodCodes = foodRepository.findAllFoodCodes().toHashSet()
+        logger.info("Current existing food codes in DB: ${existingFoodCodes.size}")
+
         WorkbookFactory.create(file).use { workbook ->
             val sheet = workbook.getSheetAt(0)
             val headerRow = sheet.getRow(0) ?: return
@@ -36,12 +41,14 @@ class DataLoadService(private val foodRepository: FoodRepository) {
 
             val foods = mutableListOf<Food>()
             var count = 0
-            // Skip header (row 0)
+            val startedAt = System.currentTimeMillis()
+
             for (i in 1..sheet.lastRowNum) {
                 val row = sheet.getRow(i) ?: continue
                 val foodCd = getStringValue(row, columnMap["식품코드"]) ?: continue
                 
-                if (foodRepository.existsByFoodCd(foodCd)) continue
+                // In-memory check instead of DB query
+                if (existingFoodCodes.contains(foodCd)) continue
 
                 val food = Food(
                     foodCd = foodCd,
@@ -62,20 +69,20 @@ class DataLoadService(private val foodRepository: FoodRepository) {
                     transFat = getDoubleValue(row, columnMap["트랜스지방(g)"] ?: columnMap["트랜스 지방산(g)"])
                 )
                 foods.add(food)
+                existingFoodCodes.add(foodCd) // Update in-memory set to prevent duplicate in same file
                 count++
 
                 if (foods.size >= 1000) {
                     foodRepository.saveAll(foods)
                     foods.clear()
-                    if (count % 1000 == 0) {
-                        logger.info("Processed $count rows...")
-                    }
+                    logger.info("Processed $i rows, Loaded $count new items...")
                 }
             }
             if (foods.isNotEmpty()) {
                 foodRepository.saveAll(foods)
             }
-            logger.info("Excel data load completed. Total rows: $count")
+            val endedAt = System.currentTimeMillis()
+            logger.info("Excel data load completed. Total new items: $count. Time taken: ${(endedAt - startedAt) / 1000}s")
         }
     }
 

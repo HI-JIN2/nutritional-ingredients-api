@@ -8,4 +8,7 @@ import java.util.*
 interface FoodRepository : JpaRepository<Food, Long>, JpaSpecificationExecutor<Food> {
     fun findByFoodCd(foodCd: String): Optional<Food>
     fun existsByFoodCd(foodCd: String): Boolean
+
+    @org.springframework.data.jpa.repository.Query("SELECT f.foodCd FROM Food f")
+    fun findAllFoodCodes(): Set<String>
 }

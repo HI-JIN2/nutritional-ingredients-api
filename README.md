@@ -50,7 +50,7 @@ docker-compose up --build
 
 ## 주요 기능 및 구현 상세
 
-### 데이터 적재 (Data Loading)
+### 데이터 적재 
 
 - **방법**: 애플리케이션 시작 시 `DataLoader`가 활성화되어 있으면 지정된 경로의 파일(Excel)을 읽어 DB에 적재합니다.
 - **Excel 파싱**: `Apache POI`를 사용하여 대용량 엑셀 데이터를 처리합니다. (.xlsx, .xls 지원)
@@ -77,7 +77,7 @@ docker-compose up --build
     - `PUT /api/v1/foods/{id}`: 수정
     - `DELETE /api/v1/foods/{id}`: 삭제
 
-### 검색 API (Search API)
+### 검색 API 
 - `GET /api/v1/search`: 목록 조회 (검색/페이징)
 
 #### 검색 API 세부 구현

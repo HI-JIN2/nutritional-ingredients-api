@@ -78,7 +78,7 @@ docker-compose up --build
     - `DELETE /api/v1/foods/{id}`: 삭제
 
 ### 검색 API (Search API)
-- `GET /api/v1/foods`: 목록 조회 (검색/페이징)
+- `GET /api/v1/search`: 목록 조회 (검색/페이징)
 
 #### 검색 API 세부 구현
 사용자 편의성과 데이터의 특성을 고려하여 다음과 같은 검색 전략을 적용하였습니다:

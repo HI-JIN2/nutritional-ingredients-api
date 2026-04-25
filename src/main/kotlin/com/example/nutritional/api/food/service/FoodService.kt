@@ -1,4 +1,4 @@
-package com.example.nutritional.api.food.application
+package com.example.nutritional.api.food.service
 
 import com.example.nutritional.api.food.domain.Food
 import com.example.nutritional.api.food.domain.FoodRepository

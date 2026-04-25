@@ -43,8 +43,8 @@ docker-compose up --build
 
 - `food`
     - `domain`: 엔티티, 리포지토리 인터페이스, 검색 스펙
-    - `application`: 서비스(비즈니스 로직), DTO
-    - `infrastructure`: 데이터 로더(Excel), 하위 구현체
+    - `service`: 서비스(비즈니스 로직), DTO
+    - `persistence`: 데이터 로더(Excel), 하위 구현체
     - `presentation`: REST 컨트롤러
 - `global`: 에러 핸들링, 공통 설정
 

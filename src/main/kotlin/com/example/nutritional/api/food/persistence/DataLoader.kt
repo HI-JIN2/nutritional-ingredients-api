@@ -1,4 +1,4 @@
-package com.example.nutritional.api.food.infrastructure
+package com.example.nutritional.api.food.persistence
 
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.CommandLineRunner

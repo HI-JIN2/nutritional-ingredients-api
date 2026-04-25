@@ -1,4 +1,4 @@
-package com.example.nutritional.api.food.infrastructure
+package com.example.nutritional.api.food.persistence
 
 import com.example.nutritional.api.food.domain.Food
 import com.example.nutritional.api.food.domain.FoodRepository

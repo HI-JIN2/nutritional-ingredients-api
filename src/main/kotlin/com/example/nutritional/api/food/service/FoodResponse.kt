@@ -1,20 +1,18 @@
-package com.example.nutritional.api.food.application
+package com.example.nutritional.api.food.service
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies
 import com.fasterxml.jackson.databind.annotation.JsonNaming
 import io.swagger.v3.oas.annotations.media.Schema
-import jakarta.validation.constraints.NotBlank
 
-@Schema(description = "식품 등록 요청 DTO")
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
-data class FoodCreateRequest(
+data class FoodResponse(
+    @Schema(description = "ID", example = "1")
+    val id: Long,
     @Schema(description = "식품코드", example = "D000006")
-    @field:NotBlank(message = "식품 코드는 필수입니다.")
     val foodCd: String,
     @Schema(description = "식품군", example = "음식")
     val groupName: String?,
     @Schema(description = "식품이름", example = "꿩불고기")
-    @field:NotBlank(message = "식품 이름은 필수입니다.")
     val foodName: String,
     @Schema(description = "조사년도", example = "2019")
     val researchYear: Int?,

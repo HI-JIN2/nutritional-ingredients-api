@@ -8,7 +8,7 @@
 - **Framework**: Spring Boot 3.2.4
 - **Database**: PostgreSQL (Production), H2 (Test)
 - **DB Migration**: Flyway
-- **Library**: SpringDoc (OpenAPI/Swagger)
+- **Library**: Apache POI (Excel Parsing), SpringDoc (OpenAPI/Swagger)
 - **Deployment**: Docker, Docker Compose
 
 ## 시작하기
@@ -50,10 +50,10 @@ docker-compose up --build
 
 ## 주요 기능 및 구현 상세
 
-### 데이터 적재
+### 데이터 적재 (Data Loading)
 
-- **방법**: 애플리케이션 시작 시 `DataLoader`가 활성화되어 있으면 지정된 경로의 파일(CSV)을 읽어 DB에 적재합니다.
-- **CSV 파싱**: `Apache Commons CSV`를 사용하여 대용량 데이터를 스트리밍 방식으로 처리합니다.
+- **방법**: 애플리케이션 시작 시 `DataLoader`가 활성화되어 있으면 지정된 경로의 파일(Excel)을 읽어 DB에 적재합니다.
+- **Excel 파싱**: `Apache POI`를 사용하여 대용량 엑셀 데이터를 처리합니다. (.xlsx, .xls 지원)
 - **중복 방지**: `food_cd`를 고유 키로 사용하여 이미 존재하는 데이터는 건너뜁니다.
 - **결측치 처리**:
     - 수치형 데이터(열량, 영양소 등)가 비어있는 경우 `0.0`으로 기본값을 설정합니다.

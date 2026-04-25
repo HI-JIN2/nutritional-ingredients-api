@@ -28,5 +28,5 @@ Thumbs.db
 # Project specific
 logs/
 *.log
-src/main/resources/data/*.xlsx
+#src/main/resources/data/*.xlsx
 # src/main/resources/data/*.csv  # Keep this if you want to commit the data

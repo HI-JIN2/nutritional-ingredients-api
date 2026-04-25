@@ -19,7 +19,7 @@ spring:
 app:
   data:
     load: true
-    file-path: src/main/resources/data/통합_식품영양성분DB_음식_20230715.csv
+    file-path: src/main/resources/data/통합_식품영양성분DB_음식_20230715.xlsx
 
 server:
   port: 8080

@@ -103,7 +103,7 @@ docker-compose up --build
    - Spring Data JPA의 `Pageable`을 사용하여 필요한 범위의 데이터만 효율적으로 조회합니다.
 
 
-## 예외 처리 (Error Handling)
+## 예외 처리
 
 애플리케이션 전역에서 발생하는 예외를 `GlobalExceptionHandler`를 통해 일관된 형식으로 처리하며, 다음과 같은 주요 상황을 대응합니다:
 

@@ -5,6 +5,9 @@ import com.example.nutritional.api.food.domain.FoodRepository
 import com.example.nutritional.api.food.domain.FoodSpecifications
 import com.example.nutritional.api.global.error.DuplicateFoodCodeException
 import com.example.nutritional.api.global.error.FoodNotFoundException
+import com.example.nutritional.api.food.service.dto.FoodCreateRequest
+import com.example.nutritional.api.food.service.dto.FoodResponse
+import com.example.nutritional.api.food.service.dto.FoodUpdateRequest
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service

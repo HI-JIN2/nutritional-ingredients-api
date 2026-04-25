@@ -166,4 +166,31 @@ class FoodApiIntegrationTest @Autowired constructor(
         mockMvc.perform(delete("${ApiEndpoints.FOODS}/99999"))
             .andExpect(status().isNotFound)
     }
+
+    @Test
+    fun `쿼리 파라미터 타입이 맞지 않으면 400을 반환해야 한다`() {
+        mockMvc.perform(
+            get(ApiEndpoints.SEARCH)
+                .param("research_year", "not_a_number")
+        ).andExpect(status().isBadRequest)
+            .andExpect(jsonPath("$.message").value("research_year 파라미터의 타입이 잘못되었습니다. (기대 타입: Int)"))
+    }
+
+    @Test
+    fun `잘못된 형식의 JSON을 보내면 400을 반환해야 한다`() {
+        mockMvc.perform(
+            post(ApiEndpoints.FOODS)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{ \"food_cd\": \"TEST\", \"food_name\": ") // 끊긴 JSON
+        ).andExpect(status().isBadRequest)
+            .andExpect(jsonPath("$.message").value("요청 본문 형식이 잘못되었습니다."))
+    }
+
+    @Test
+    fun `지원하지 않는 HTTP 메서드로 요청하면 405를 반환해야 한다`() {
+        mockMvc.perform(
+            post("${ApiEndpoints.SEARCH}") // SEARCH는 GET만 지원
+        ).andExpect(status().isMethodNotAllowed)
+            .andExpect(jsonPath("$.message").value("지원하지 않는 HTTP 메서드입니다: POST"))
+    }
 }

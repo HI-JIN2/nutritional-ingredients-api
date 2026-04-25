@@ -13,8 +13,8 @@ data class PageResponse<T>(
     val totalElements: Long,
     @Schema(description = "전체 페이지 수", example = "5")
     val totalPages: Int,
-    @Schema(description = "마지막 페이지 여부", example = "false")
-    val last: Boolean,
+    @Schema(description = "다음 페이지 존재 여부", example = "true")
+    val hasNext: Boolean,
     @Schema(description = "데이터 목록")
     val content: List<T>
 ) {
@@ -23,7 +23,7 @@ data class PageResponse<T>(
         size = pageData.size,
         totalElements = pageData.totalElements,
         totalPages = pageData.totalPages,
-        last = pageData.isLast,
+        hasNext = pageData.hasNext(),
         content = pageData.content
     )
 }

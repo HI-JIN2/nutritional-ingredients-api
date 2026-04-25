@@ -28,7 +28,6 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     
     // Data processing
-    implementation("org.apache.poi:poi-ooxml:5.2.5")
     implementation("org.apache.commons:commons-csv:1.10.0")
     
     // Swagger/OpenAPI

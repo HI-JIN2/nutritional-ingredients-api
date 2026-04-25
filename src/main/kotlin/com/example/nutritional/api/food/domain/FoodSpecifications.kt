@@ -12,16 +12,18 @@ class FoodSpecifications {
             return Specification { root, query, cb ->
                 val predicates = mutableListOf<jakarta.persistence.criteria.Predicate>()
 
-                foodName?.let {
-                    predicates.add(cb.like(cb.lower(root.get("foodName")), "%${it.lowercase()}%"))
+                foodName?.trim()?.takeIf { it.isNotEmpty() }?.let {
+                    val normalized = it.lowercase()
+                    predicates.add(cb.like(cb.lower(root.get("foodName")), "%$normalized%"))
                 }
                 researchYear?.let {
                     predicates.add(cb.equal(root.get<Int>("researchYear"), it))
                 }
-                makerName?.let {
-                    predicates.add(cb.like(cb.lower(root.get("makerName")), "%${it.lowercase()}%"))
+                makerName?.trim()?.takeIf { it.isNotEmpty() }?.let {
+                    val normalized = it.lowercase()
+                    predicates.add(cb.like(cb.lower(root.get("makerName")), "%$normalized%"))
                 }
-                foodCode?.let {
+                foodCode?.trim()?.takeIf { it.isNotEmpty() }?.let {
                     predicates.add(cb.equal(root.get<String>("foodCd"), it))
                 }
 

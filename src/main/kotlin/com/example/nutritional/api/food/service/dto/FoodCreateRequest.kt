@@ -1,4 +1,4 @@
-package com.example.nutritional.api.food.service
+package com.example.nutritional.api.food.service.dto
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies
 import com.fasterxml.jackson.databind.annotation.JsonNaming

@@ -1,6 +1,6 @@
 package com.example.nutritional.api.food.presentation
 
-import com.example.nutritional.api.food.service.FoodCreateRequest
+import com.example.nutritional.api.food.service.dto.FoodCreateRequest
 import com.example.nutritional.api.food.service.FoodService
 import com.example.nutritional.api.global.common.ApiEndpoints
 import com.fasterxml.jackson.databind.ObjectMapper
@@ -136,7 +136,7 @@ class FoodApiIntegrationTest @Autowired constructor(
 
     @Test
     fun `존재하지 않는 대상을 수정 시도하면 404를 반환해야 한다`() {
-        val request = com.example.nutritional.api.food.service.FoodUpdateRequest(
+        val request = com.example.nutritional.api.food.service.dto.FoodUpdateRequest(
             foodName = "Updated Food",
             groupName = "Group",
             researchYear = 2024,

@@ -1,8 +1,8 @@
 package com.example.nutritional.api.food.presentation
 
-import com.example.nutritional.api.food.service.FoodCreateRequest
-import com.example.nutritional.api.food.service.FoodResponse
-import com.example.nutritional.api.food.service.FoodUpdateRequest
+import com.example.nutritional.api.food.service.dto.FoodCreateRequest
+import com.example.nutritional.api.food.service.dto.FoodResponse
+import com.example.nutritional.api.food.service.dto.FoodUpdateRequest
 import com.example.nutritional.api.food.service.FoodService
 import com.example.nutritional.api.global.common.ApiEndpoints
 import io.swagger.v3.oas.annotations.Operation

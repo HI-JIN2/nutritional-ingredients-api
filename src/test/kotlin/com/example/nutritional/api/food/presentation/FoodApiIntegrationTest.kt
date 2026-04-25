@@ -173,7 +173,7 @@ class FoodApiIntegrationTest @Autowired constructor(
             get(ApiEndpoints.SEARCH)
                 .param("research_year", "not_a_number")
         ).andExpect(status().isBadRequest)
-            .andExpect(jsonPath("$.message").value("research_year 파라미터의 타입이 잘못되었습니다. (기대 타입: Int)"))
+            .andExpect(jsonPath("$.message").value("research_year 파라미터의 타입이 잘못되었습니다. (기대 타입: Integer)"))
     }
 
     @Test

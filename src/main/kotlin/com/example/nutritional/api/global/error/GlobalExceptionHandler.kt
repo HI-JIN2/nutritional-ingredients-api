@@ -28,6 +28,13 @@ class GlobalExceptionHandler {
             .body(ErrorResponse(HttpStatus.BAD_REQUEST.value(), message))
     }
 
+    @ExceptionHandler(org.springframework.web.method.annotation.MethodArgumentTypeMismatchException::class)
+    fun handleTypeMismatch(e: org.springframework.web.method.annotation.MethodArgumentTypeMismatchException): ResponseEntity<ErrorResponse> {
+        val message = "${e.name} 파라미터의 타입이 잘못되었습니다. (기대 타입: ${e.requiredType?.simpleName})"
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+            .body(ErrorResponse(HttpStatus.BAD_REQUEST.value(), message))
+    }
+
     @ExceptionHandler(Exception::class)
     fun handleGeneral(e: Exception): ResponseEntity<ErrorResponse> {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)

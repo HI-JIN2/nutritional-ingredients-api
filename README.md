@@ -103,12 +103,26 @@ docker-compose up --build
    - Spring Data JPA의 `Pageable`을 사용하여 필요한 범위의 데이터만 효율적으로 조회합니다.
 
 
-## 예외 처리
+## 예외 처리 (Error Handling)
 
-- `GlobalExceptionHandler`를 통해 일관된 오류 응답 형식을 반환합니다.
-    - `404 Not Found`: 존재하지 않는 리소스 요청 시
-    - `409 Conflict`: 중복된 식품코드 생성 시도 시
-    - `400 Bad Request`: 유효하지 않은 요청 데이터 전달 시
+애플리케이션 전역에서 발생하는 예외를 `GlobalExceptionHandler`를 통해 일관된 형식으로 처리하며, 다음과 같은 주요 상황을 대응합니다:
+
+- **400 Bad Request**
+    - `@Valid` 검증 실패 (필수값 누락, 유효하지 않은 데이터 등)
+    - 쿼리 파라미터 타입 불일치 (예: 숫자가 필요한 곳에 문자 유입)
+    - 요청 본문(JSON) 형식 오류
+- **404 Not Found**: 존재하지 않는 식품 ID 상세 조회, 수정, 삭제 요청 시
+- **405 Method Not Allowed**: 엔드포인트에서 지원하지 않는 HTTP 메서드 호출 시
+- **409 Conflict**: 이미 존재하는 `food_cd`로 생성 시도 시
+- **500 Internal Server Error**: 기타 예기치 못한 서버 내부 오류 (에러 로그 기록)
+
+### 일관된 에러 응답 형식
+```json
+{
+  "status": 400,
+  "message": "상세 에러 메시지"
+}
+```
 
 
 ## 테스트 실행

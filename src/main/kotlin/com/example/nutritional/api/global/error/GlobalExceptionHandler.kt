@@ -35,10 +35,24 @@ class GlobalExceptionHandler {
             .body(ErrorResponse(HttpStatus.BAD_REQUEST.value(), message))
     }
 
+    @ExceptionHandler(org.springframework.http.converter.HttpMessageNotReadableException::class)
+    fun handleHttpMessageNotReadable(e: org.springframework.http.converter.HttpMessageNotReadableException): ResponseEntity<ErrorResponse> {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+            .body(ErrorResponse(HttpStatus.BAD_REQUEST.value(), "요청 본문 형식이 잘못되었습니다."))
+    }
+
+    @ExceptionHandler(org.springframework.web.HttpRequestMethodNotSupportedException::class)
+    fun handleMethodNotSupported(e: org.springframework.web.HttpRequestMethodNotSupportedException): ResponseEntity<ErrorResponse> {
+        return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED)
+            .body(ErrorResponse(HttpStatus.METHOD_NOT_ALLOWED.value(), "지원하지 않는 HTTP 메서드입니다: ${e.method}"))
+    }
+
     @ExceptionHandler(Exception::class)
     fun handleGeneral(e: Exception): ResponseEntity<ErrorResponse> {
+        val logger = org.slf4j.LoggerFactory.getLogger(GlobalExceptionHandler::class.java)
+        logger.error("Unexpected error occurred", e)
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-            .body(ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.message ?: "서버 내부 오류가 발생했습니다"))
+            .body(ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), "서버 내부 오류가 발생했습니다."))
     }
 }
 

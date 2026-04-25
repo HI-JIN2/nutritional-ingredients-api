@@ -7,6 +7,7 @@
 - **Language**: Kotlin 1.9.23
 - **Framework**: Spring Boot 3.2.4
 - **Database**: PostgreSQL (Production), H2 (Test)
+- **DB Migration**: Flyway
 - **Library**: Apache POI (Excel Parsing), SpringDoc (OpenAPI/Swagger)
 - **Deployment**: Docker, Docker Compose
 
@@ -78,6 +79,15 @@ docker-compose up --build
     - `404 Not Found`: 존재하지 않는 리소스 요청 시
     - `409 Conflict`: 중복된 식품코드 생성 시도 시
     - `400 Bad Request`: 유효하지 않은 요청 데이터 전달 시
+
+## 데이터베이스 마이그레이션 (Flyway)
+
+이 프로젝트는 데이터베이스 스키마 버전 관리를 위해 **Flyway**를 사용합니다.
+
+- **위치**: `src/main/resources/db/migration`
+- **파일명 규칙**: `V{Version}__{Description}.sql` (예: `V1__init.sql`)
+- **자동 적용**: 애플리케이션 시작 시 미적용된 마이그레이션 파일이 자동으로 실행됩니다.
+- **설정**: `spring.jpa.hibernate.ddl-auto: validate` 설정을 통해 Hibernate가 스키마를 직접 수정하지 않고, Flyway가 생성한 스키마를 검증하도록 구성되어 있습니다.
 
 ## 테스트 실행
 
